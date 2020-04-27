@@ -1,0 +1,59 @@
+Key world: 
+Working directory
+Staging area sau khi add 1 file==> file do dang nam trong staging area (trang thai san sang de commit)
+Repository
+
+//Xoa thay doi
+git checkout --<namefile>: xoa thay doi o file do o working directory. (chua add commit)
+// chuyen 1 file da add roi thanh 1 file chua add
+add xong co the git reset HEAD <file> hoac git reset <file>
+// xoa branch
+git branch -D <nameBranch>
+
+// RESET
+// SOFT
+git reset --soft <SHA ID commit muon quay lại> Đưa HEAD về commit chỉ định. Mở toàn bộ commit sau commit chỉ định. Đưa tất cả các thay đổi vào staging area(ở trạng thái săn sàng commit)
+
+//MIXED
+git reset --mixed <SHA ID commit muon quay lại> Giống trên nhưng thay đổi chưa được đưa vào Staging area
+
+//HARD ...
+git reset --hard <SHA ID commit muon quay lại> BỎ TẤT CẢ CÁC COMMIT SAU COMMIT CHỈ ĐỊNH
+
+//REVERT
+git revert <SHA ID commit> // Tạo ra 1 commit mới ở trên cùng và đảo ngược lại tất cả các thay đổi của commit chỉ định
+(chu ý: Cửa sổ chỉnh sửa Ctr X để thoát)
+
+// Sử dụng gitignore để lưu các file không muốn lưu thay đổi vào trong git như (VD: node_module)
+
+// Lưu tài khoản git
+git config --global credential.helper "cache --timeout=18000"
+
+//Review Code ở 1 brand trên github nhưng ko có ở trong local (Ko cần phải pull hay clone cả cái branch đó về)
+git remote -v ==> hiển thị các branch có thể trên github 
+git fetch origin <tên branch>
+git branch (vẫn chỉ có các branch trên máy nhưng vẫn có thể checkout branch vẫn tải về.
+
+
+
+
+// xử lý conflict 
+-----------------------------------------------------------------------------------------
+Giải thiết: A và B cùng gửi pullrequest tới master.
+ Trong đó commit của 2 người đề sửa đổi cùng một phần nào đó trong code.
+ Sau khi commit của A được merge vào master thì B không thể merge nữa (xảy ra conflict)
+----------------------------------------------------------------------------------------
+SỬ dụng rebase :
+ Các bước xử lý: B checkout master ==> pull ==> checkout lại branch có conflict ==> git rebase master 
+Nó sẽ có thông báo cụ thể conflict và những vị trí cụ thể sẽ được đánh dấu sẵn trong code.
+Sửa chữa những phần đó ==> add vào ==> git rebase --continue
+CUỐI CÙNG ==>git push origin <tên branch> -f
+//Tác dụng chủ yếu khi không muốn xóa branch đi và nó sẽ xóa các commit lúc trước và chuyển commit sau khi được rebase lên đầu.
+------------------------------------------------------------------------------------------
+Sử dụng Merge
+ Updata master như trên. Checkout lại branch có conflict ==> git merge master ==> Vào chỗ conflict fix ==> add rồi commit lại và push lại
+
+(chú ý: tránh push -f lên các branch mà mn làm việc chung)
+
+
+Nên học thêm Vim và Nano đây là hai công cụ sửa chữa văn bản trên temiral 
