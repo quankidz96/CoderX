@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Baitap</title>
+  <style>
+    table, th, td {
+  border: 1px solid black;
+}
+  </style>
+</head>
+
+<body>
+
+  <button id = 'get-bt'>GET</button>
+  <button id = 'post-bt'>POST</button>
+  <button id = 'put-bt'>PUT</button>
+  <button id = 'patch-bt'>PATCH</button>
+  <button id = 'del-bt'>DELETE</button>
+
+  <ul id = "show">   
+  </ul>
+  
+  <!-- Script -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  <script>
+
+    //Event listeners
+    document.getElementById('get-bt').addEventListener('click', getReq);
+    document.getElementById('post-bt').addEventListener('click', postReq);
+    document.getElementById('put-bt').addEventListener('click', putReq);
+    document.getElementById('patch-bt').addEventListener('click', patchReq);
+    document.getElementById('del-bt').addEventListener('click', delReq);
+
+    //Create instance 
+    const instance = axios.create({
+    baseURL: 'https://jsonplaceholder.typicode.com'
+    });
+
+    //URLS
+    var url = '/posts';
+    var urlput = '/posts/1'
+
+    //Render data.name
+    function render(items) {
+      var showRes = document.getElementById('show'); 
+      // var contents = items.map(function(item){
+      //   return "<li>" + item.title + "</li>";
+      // });
+      // var content = contents.join('');
+      showRes.innerHTML = JSON.stringify(items);
+    }
+
+
+    //GET Request
+    function getReq (){
+      instance
+    .get(url,{
+      params:{
+        _limit:  5
+      }
+    })
+    .then(function(res){
+      console.log(res.data);
+      var data = res.data;
+      render(data);
+    })
+    .catch(function(err){
+      document.write('Loi load link....');
+      console.log(err);
+    });  
+    }
+    
+    //POST REQUEST
+    function postReq(){
+      instance.post(url,{
+      name: "ahiah"  
+    })
+    .then(function(res){
+      console.log(res);
+      var data = res.data;
+      render(data);
+    })
+    .catch(function(err){
+      console.log(err);
+    });
+    }
+
+
+    //PUT REQUEST
+    function putReq(){
+      instance.put(urlput,{
+      name: "just put",
+      email: "nonono@example.com"
+    })
+    .then(function(res){
+      console.log(res);
+      var data = res.data;
+      render(data);
+    })
+    .catch(function(err){
+      console.log(err); 
+    });
+    }
+
+    //Patch Request
+    function patchReq(){
+      instance.patch(urlput,{
+      name: "nono"   
+    })
+    .then(function(res){
+      console.log(res);
+      var data = res.data;
+      render(data);
+    })
+    .catch(function(err){
+      console.log(err);
+      var data = res.data;
+      render(data);
+    });
+    }
+
+    //Delete request
+    function delReq(){
+      instance({
+        method: 'delete',
+        url: '/posts/1'
+      })
+      .then(function(res){
+        console.log(res);
+        var data = res.data;
+        render(data);
+      })
+      .catch(err => console.log(err));
+    }
+    
+    
+  </script>
+</body>
+</html>

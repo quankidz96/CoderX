@@ -1,0 +1,13 @@
+{
+  "customer": [
+    {
+      "name": "nono",
+      "email": "nonono@example.com",
+      "id": 1
+    },
+    {
+      "name": "ahiah",
+      "id": 2
+    }
+  ]
+}
